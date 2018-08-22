@@ -1,0 +1,32 @@
+﻿@model UserViewModel
+
+
+<tr>
+    <td>@Model.UserName</td>
+    <td>@Model.Email</td>
+    <td>@Html.DisplayFor(model => Model.IsSupplier)</td>
+    <td>@Html.DisplayFor(model => Model.IsAdmin)</td>
+    <td>
+        <a asp-area="Admin" asp-controller="Users" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-info">Детайли</a>
+        @if (!Model.IsAdmin)
+        {
+            if (!Model.IsSupplier)
+            {
+                <a asp-area="Admin" asp-controller="Users" asp-action="MakeSupplier" asp-route-id="@Model.Id" class="btn btn-success">Направи доставчик</a>
+            }
+            else
+            {
+                <a asp-area="Admin" asp-controller="Users" asp-action="RemoveSupplier" asp-route-id="@Model.Id" class="btn btn-success">Направи потребител</a>
+            }
+            <a asp-area="Admin" asp-controller="Users" asp-action="ChangePassword" asp-route-id="@Model.Id" class="btn btn-warning">Парола</a>
+            if (!Model.IsBanned)
+            {
+                <a asp-area="Admin" asp-controller="Users" asp-action="Ban" asp-route-id="@Model.Id" class="btn btn-danger">Забрана</a>
+            }
+            else
+            {
+                <a asp-area="Admin" asp-controller="Users" asp-action="UnBan" asp-route-id="@Model.Id" class="btn btn-danger">Махане на забрана</a>
+            }
+        }
+    </td>
+</tr>

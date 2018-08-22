@@ -1,0 +1,49 @@
+﻿@using System.Globalization
+@model HomeViewModel
+@{
+    ViewData["Title"] = "Начало";
+}
+
+<div class="text-center mt-5">
+    @{
+        var now = DateTime.UtcNow;
+        var date = ViewData["discountDateToBeParsed"].ToString();
+        var discoutDate = DateTime.ParseExact(date, "d-M-yyyy", CultureInfo.InvariantCulture);
+        if (now < discoutDate)
+        {
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Здравейте!</strong> Получавате 10% отстъпка на всички продукти до @ViewData["discountDate"]
+            </div>
+        }
+    }
+    <h1>Добре дошли в Modern Market!</h1>
+
+
+    <div class="d-flex">
+        <div class="dropdown text-left mt-5" style="margin-left: 5%">
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+                Типове
+            </button>
+            <div class="dropdown-menu">
+                @foreach (var type in Model.TypesViewModels)
+                {
+                    <a class="dropdown-item" asp-controller="Types" asp-action="Index" asp-route-id="@type.Id">@type.Name</a>
+                }
+            </div>
+        </div>
+        <div class="dropdown text-left mt-5 ml-1">
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+                Категории
+            </button>
+            <div class="dropdown-menu">
+                @foreach (var category in Model.CategoriesViewModels)
+                {
+                    <a class="dropdown-item" asp-controller="CategoriesInstances" asp-action="Index" asp-route-id="@category.Id" asp-route-slug="@category.Slug">@category.Name</a>
+                }
+            </div>
+        </div>
+    </div>
+    <div>
+        <img src="https://www.smartdatacollective.com/wp-content/uploads/2018/05/Ecommerce.jpg" alt="Alternate Text" class="mt-1" />
+    </div>
+</div>

@@ -1,0 +1,51 @@
+﻿@page
+@model ExternalLoginsModel
+@{
+    ViewData["Title"] = "Manage your external logins";
+}
+
+@if (Model.CurrentLogins?.Count > 0)
+{
+    <h4>Регистрирани влизания</h4>
+    <table class="table mt-3">
+        <tbody>
+            @foreach (var login in Model.CurrentLogins)
+            {
+                <tr>
+                    <td>@login.LoginProvider</td>
+                    <td>
+                        @if (Model.ShowRemoveButton)
+                        {
+                        <form id="remove-login" asp-page-handler="RemoveLogin" method="post">
+                            <div>
+                                <input asp-for="@login.LoginProvider" name="LoginProvider" type="hidden" />
+                                <input asp-for="@login.ProviderKey" name="ProviderKey" type="hidden" />
+                                <button type="submit" class="btn btn-secondary" title="Премахни @login.LoginProvider вход от акаунта">Премахни</button>
+                            </div>
+                        </form>
+                        }
+                        else
+                        {
+                        @: &nbsp;
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@if (Model.OtherLogins?.Count > 0)
+{
+    <h4>Добави нова услуга към акаунта.</h4>
+    <hr />
+    <form id="link-login-form" asp-page-handler="LinkLogin" method="post" class="form-horizontal">
+        <div id="socialLoginList">
+            <p>
+                @foreach (var provider in Model.OtherLogins)
+                {
+                    <button id="link-login-button" type="submit" class="btn btn-secondary" name="provider" value="@provider.Name" title="Влез ползвайки @provider.DisplayName акаунт">@provider.DisplayName</button>
+                }
+            </p>
+        </div>
+    </form>
+}

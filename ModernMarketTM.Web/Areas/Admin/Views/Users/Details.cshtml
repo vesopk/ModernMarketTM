@@ -1,0 +1,31 @@
+﻿@model UserDetailsViewModel
+@{
+    ViewData["Title"] = $"Детайли за {Model.UserName}";
+}
+
+<h2 class="mt-3">@ViewData["Title"]</h2>
+
+<ul class="list-group mt-3">
+    <li class="list-group-item"><strong>Номер:</strong> @Model.Id</li>
+    <li class="list-group-item"><strong>Потребителско име:</strong> @Model.UserName</li>
+    <li class="list-group-item"><strong>Цяло име:</strong> @Model.FullName</li>
+    <li class="list-group-item"><strong>Забрана:</strong> @(Model.IsBanned ? "Да" : "Не")</li>
+    <li class="list-group-item">
+        <strong>Роли:</strong>
+        <ul>
+            <li>Потребител</li>
+            @foreach (var role in Model.Roles)
+            {
+                if (@role == "Supplier")
+                {
+                    <li>Доставчик</li>
+                }
+                else
+                {
+                    <li>Админ</li>
+                }
+            }
+        </ul>
+    </li>
+</ul>
+

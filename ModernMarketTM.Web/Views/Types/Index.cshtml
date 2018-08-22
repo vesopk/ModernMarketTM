@@ -1,0 +1,13 @@
+﻿@using ModernMarketTM.Web.Areas.Admin.Models.ViewModels
+@model IEnumerable<CategoriesViewModel>
+@{
+    ViewData["Title"] = ViewData["typeName"];
+}
+
+
+<h2 class="mt-5 text-center">@ViewData["Title"]</h2>
+
+<div class="row">
+    @Html.DisplayForModel()
+</div>
+

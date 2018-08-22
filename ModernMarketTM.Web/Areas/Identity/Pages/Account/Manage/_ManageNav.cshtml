@@ -1,0 +1,15 @@
+﻿@using ModernMarketTM.Models
+@inject SignInManager<User> SignInManager
+@{
+    var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+}
+<ul class="nav nav-pills nav-stacked">
+    <li class="nav-item"><a class=" nav-link active bg-info" asp-page="./Index">Профил</a></li>
+    <li class="nav-item"><a class=" nav-link active bg-info mt-1" id="change-password" asp-page="./ChangePassword">Парола</a></li>
+    @if (hasExternalLogins)
+    {
+        <li class="nav-item"><a class=" nav-link active bg-info mt-1" id="external-login" asp-page="./ExternalLogins">Външни влизания</a></li>
+    }
+    <li class="nav-item"><a class=" nav-link active bg-info mt-1" asp-page="./TwoFactorAuthentication">Двуфакторна автентикация</a></li>
+    <li class="nav-item"><a class=" nav-link active bg-info mt-1" asp-page="./PersonalData">Лични данни</a></li>
+</ul>

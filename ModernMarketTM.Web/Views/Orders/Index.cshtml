@@ -1,0 +1,13 @@
+﻿@model OrderFinishViewModel
+@{
+    ViewData["Title"] = "Поръчка";
+}
+
+<h2 class="mt-3"></h2>
+
+<div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">Успешна поръчка</h4>
+    <p>Очаквайте поръчката на адрес @Model.Address до 7 работни дни на стойност @($"{Model.Price:F2}") лв.</p>
+    <hr>
+    <p class="mb-0">За повече информация очаквайте имейл.</p>
+</div>

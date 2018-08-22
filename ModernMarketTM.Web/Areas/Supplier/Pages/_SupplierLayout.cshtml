@@ -1,0 +1,68 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] Private Modern Market TM</title>
+
+    <link href="~/css/bootstrap-grid.css" rel="stylesheet" />
+    <link href="~/css/bootstrap-reboot.css" rel="stylesheet" />
+    <link href="~/css/bootstrap.css" rel="stylesheet" />
+</head>
+<body style="background: #EEEEEC">
+    <div class="navbar-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="navbar-brand">
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Modern Market TM</a>
+            </div>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Начало</a></li>
+                <li class="nav-item active"><a class="nav-link" asp-area="Supplier" asp-page="/Supply/Add">Стока</a></li>
+            </ul>
+
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm" class="form-inline">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item">
+                            @{
+                                var user = await UserManager.GetUserAsync(User);
+                                <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Здравей, @user.FullName!</a>
+                            }
+                        </li>
+                        <li class="nav-item">
+                            <button type="submit" class="btn btn-link navbar-btn nav-link">Излез</button>
+                        </li>
+                    </ul>
+                </form>
+            }
+            else
+            {
+
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Регистрация</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Влез</a></li>
+                </ul>
+            }
+        </nav>
+    </div>
+
+    <partial name="_CookieConsentPartial" />
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; 2018 - ModernMarketTM.Web</p>
+        </footer>
+    </div>
+    <script src="~/js/site.js"></script>
+    <script src="~/js/bootstrap.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,11 @@
+﻿@model OrdersViewModel
+
+<tr>
+    <td>@Model.Id</td>
+    <td>@Model.Name</td>
+    <td>@Model.Price</td>
+    <td>@Model.Date.ToShortDateString()</td>
+    <td>
+        <a asp-controller="CategoriesInstances" asp-action="Details" asp-route-id="@Model.CategoryId" asp-route-slug="@Model.Slug" class="btn btn-info">Детайли</a>
+    </td>
+</tr>

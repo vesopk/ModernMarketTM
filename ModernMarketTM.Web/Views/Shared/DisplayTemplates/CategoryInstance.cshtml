@@ -1,0 +1,21 @@
+﻿@using ModernMarketTM.Models
+@model ModernMarketTM.Models.CategoryInstance
+
+<div class="list-group-item">
+    <div class="media">
+        <a class="btn btn-outline-danger btn-lg align-self-center mr-3" asp-controller="CategoriesInstances" asp-action="RemoveFromCart" asp-route-id="@Model.Id" asp-route-slug="@Model.Slug">X</a>
+        <img class="d-flex mr-4 align-self-center img-thumbnail" height="127" src="@Model.PictureUrl"
+             width="227" alt="Generic placeholder image">
+        <div class="media-body align-self-center">
+            <a asp-controller="CategoriesInstances" asp-action="Details" asp-route-id="@Model.Id" asp-route-slug="@Model.Slug" >
+                <h4 class="mb-1 list-group-item-heading"> @Model.Name </h4>
+            </a>
+            <p>
+                @Model.Description
+            </p>
+        </div>
+        <div class="col-md-2 text-center align-self-center mr-auto">
+            <h2> @Model.Price лв. </h2>
+        </div>
+    </div>
+</div>

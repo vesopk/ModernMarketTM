@@ -1,0 +1,27 @@
+﻿@model CategoryInstanceViewModel
+@{
+    ViewData["Title"] = "Стоки";
+}
+
+<h2 class="mt-3">@ViewData["Title"]</h2>
+
+<a asp-controller="CategoriesInstances" asp-action="Add" asp-area="Admin" asp-route-id="@Model.Id" asp-route-slug="@Model.Slug" class="btn btn-success mt-3">Добави стока</a>
+
+<div class="row">
+    @foreach (var instance in Model.Instances)
+    {
+        <div class="col-4">
+            <a asp-action="Details" asp-controller="CategoriesInstances" asp-route-id="@instance.Id" asp-route-slug="@instance.Slug">
+                <div class="card mt-5" >
+                    <img class="card-img" src="@instance.PictureUrl" style="height: 450px">
+                    <div class="card-body">
+                        <p class="card-text text-center text-secondary">@instance.Name</p>
+                        <p class="card-text text-center text-secondary">@instance.Price лв.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
+</div>
+
+
