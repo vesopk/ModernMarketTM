@@ -6,10 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ModernMarketTM.Data;
+<<<<<<< HEAD
 using ModernMarketTM.Models;
 using ModernMarketTM.Web.Areas.Admin.Controllers;
 using ModernMarketTM.Web.Areas.Admin.Models.ViewModels;
 using ModernMarketTM.Web.Mapping;
+=======
+using ModernMarketTM.Web.Areas.Admin.Controllers;
+>>>>>>> 273f3b8e6b168e923bb512ecdc244366d56df400
 using Moq;
 
 namespace ModernMarketTM.Tests.Controllers.Admin.CategoryInstancesTests
@@ -44,6 +48,7 @@ namespace ModernMarketTM.Tests.Controllers.Admin.CategoryInstancesTests
 
             Assert.IsTrue(controller.User.IsInRole("Admin"));
         }
+<<<<<<< HEAD
 
         [TestMethod]
         public void Index_Returns()
@@ -90,5 +95,7 @@ namespace ModernMarketTM.Tests.Controllers.Admin.CategoryInstancesTests
                 Assert.Fail();
             }
         }
+=======
+>>>>>>> 273f3b8e6b168e923bb512ecdc244366d56df400
     }
 }

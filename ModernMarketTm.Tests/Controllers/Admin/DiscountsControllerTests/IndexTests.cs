@@ -33,6 +33,9 @@ namespace ModernMarketTM.Tests.Controllers.Admin.DiscountsControllerTests
 
             Assert.IsTrue(controller.User.IsInRole("Admin"));
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 273f3b8e6b168e923bb512ecdc244366d56df400
     }
 }
