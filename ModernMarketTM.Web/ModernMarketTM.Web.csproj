@@ -6,6 +6,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Supplier\Controllers\**" />
+    <Compile Remove="Areas\Supplier\Data\**" />
+    <Compile Remove="Areas\Supplier\Models\**" />
+    <Content Remove="Areas\Supplier\Controllers\**" />
+    <Content Remove="Areas\Supplier\Data\**" />
+    <Content Remove="Areas\Supplier\Models\**" />
+    <EmbeddedResource Remove="Areas\Supplier\Controllers\**" />
+    <EmbeddedResource Remove="Areas\Supplier\Data\**" />
+    <EmbeddedResource Remove="Areas\Supplier\Models\**" />
+    <None Remove="Areas\Supplier\Controllers\**" />
+    <None Remove="Areas\Supplier\Data\**" />
+    <None Remove="Areas\Supplier\Models\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css" />
     <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
     <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css" />
@@ -101,12 +116,6 @@
     <Content Update="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Areas\Supplier\Controllers\" />
-    <Folder Include="Areas\Supplier\Data\" />
-    <Folder Include="Areas\Supplier\Models\" />
   </ItemGroup>
 
 </Project>
