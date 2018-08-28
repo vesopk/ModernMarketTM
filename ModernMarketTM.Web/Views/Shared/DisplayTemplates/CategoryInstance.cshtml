@@ -1,4 +1,5 @@
-﻿@using ModernMarketTM.Models
+﻿@using System.Globalization
+@using ModernMarketTM.Models
 @model ModernMarketTM.Models.CategoryInstance
 
 <div class="list-group-item">
@@ -7,15 +8,31 @@
         <img class="d-flex mr-4 align-self-center img-thumbnail" height="127" src="@Model.PictureUrl"
              width="227" alt="Generic placeholder image">
         <div class="media-body align-self-center">
-            <a asp-controller="CategoriesInstances" asp-action="Details" asp-route-id="@Model.Id" asp-route-slug="@Model.Slug" >
+            <a asp-controller="CategoriesInstances" asp-action="Details" asp-route-id="@Model.Id" asp-route-slug="@Model.Slug">
                 <h4 class="mb-1 list-group-item-heading"> @Model.Name </h4>
             </a>
             <p>
                 @Model.Description
             </p>
         </div>
-        <div class="col-md-2 text-center align-self-center mr-auto">
-            <h2> @Model.Price лв. </h2>
+        <div class="col-md-4 text-center align-self-center mr-auto">
+            @{
+                var now = DateTime.UtcNow;
+                var date = ViewData["discountDateToBeParsed"].ToString();
+                var discoutDate = DateTime.ParseExact(date, "d-M-yyyy", CultureInfo.InvariantCulture);
+                if (now < discoutDate)
+                {
+
+
+                    <h2><del>@Model.Price</del>лв.</h2>
+
+                    <h2><span class="text-danger">@($"{Model.Price * 0.9M:F2}") лв.</span></h2>
+                }
+                else
+                {
+                    <h2> @Model.Price лв. </h2>
+                }
+            }
         </div>
     </div>
 </div>
