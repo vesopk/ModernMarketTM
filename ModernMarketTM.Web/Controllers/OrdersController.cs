@@ -37,36 +37,38 @@ namespace ModernMarketTM.Web.Controllers
             var user = await this.UserManager.GetUserAsync(User);
             var items = this.Cart.UsersCart[user.Id].ToList();
 
-            var itemsWithId = new Dictionary<int,int>();
+            var itemsWithId = new Dictionary<int, int>();
 
-            foreach (var item in items)
-            {
-                if (!itemsWithId.ContainsKey(item.Id))
-                {
-                    itemsWithId[item.Id] = 0;
-                }
+            QuantityToBeSubtracted(items, itemsWithId);
 
-                itemsWithId[item.Id]++;
-            }
-
-            foreach (var item in itemsWithId)
-            {
-                var instance = Context.CategoryInstances.Find(item.Key);
-                instance.Quantity -= item.Value;
-                Context.CategoryInstances.Update(instance);
-                Context.SaveChanges();
-            }
+            SubtractQuantity(itemsWithId);
 
             var orders = new List<UserInstance>();
 
-            
-
             var now = DateTime.UtcNow;
             var date = DiscountsContants.DiscountDateToBeParsed;
-            var discoutDate = DateTime.ParseExact(date, "d-M-yyyy", CultureInfo.InvariantCulture);
+            var discoutDate = DateTime.ParseExact(date, CommonConstants.DateTimeParseFormat, CultureInfo.InvariantCulture);
 
             var price = 0M;
+            price = CalculatePrice(user, items, orders, now, discoutDate);
 
+            Context.Orders.AddRange(orders);
+            Context.SaveChanges();
+
+            var model = new OrderFinishViewModel()
+            {
+                Address = user.Address,
+                Price = price
+            };
+
+            this.Cart.UsersCart[user.Id].Clear();
+
+            return this.View(model);
+        }
+
+        private static decimal CalculatePrice(User user, List<CategoryInstance> items, List<UserInstance> orders, DateTime now, DateTime discoutDate)
+        {
+            decimal price;
             if (now < discoutDate)
             {
                 price = items.Sum(i => i.Price) * 0.9M;
@@ -101,18 +103,31 @@ namespace ModernMarketTM.Web.Controllers
                 }
             }
 
+            return price;
+        }
 
-            Context.Orders.AddRange(orders);
-            Context.SaveChanges();
-            var model = new OrderFinishViewModel()
+        private void SubtractQuantity(Dictionary<int, int> itemsWithId)
+        {
+            foreach (var item in itemsWithId)
             {
-                Address = user.Address,
-                Price = price
-            };
+                var instance = Context.CategoryInstances.Find(item.Key);
+                instance.Quantity -= item.Value;
+                Context.CategoryInstances.Update(instance);
+                Context.SaveChanges();
+            }
+        }
 
-            this.Cart.UsersCart[user.Id].Clear();
+        private static void QuantityToBeSubtracted(List<CategoryInstance> items, Dictionary<int, int> itemsWithId)
+        {
+            foreach (var item in items)
+            {
+                if (!itemsWithId.ContainsKey(item.Id))
+                {
+                    itemsWithId[item.Id] = 0;
+                }
 
-            return this.View(model);
+                itemsWithId[item.Id]++;
+            }
         }
 
         [Authorize]

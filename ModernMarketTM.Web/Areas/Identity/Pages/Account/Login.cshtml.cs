@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Rewrite.Internal.UrlActions;
 using Microsoft.Extensions.Logging;
 using ModernMarketTM.Models;
 
@@ -49,8 +50,8 @@ namespace ModernMarketTM.Web.Areas.Identity.Pages.Account
             [Display(Name = "Запомни ме?")]
             public bool RememberMe { get; set; }
         }
-
-        public async Task OnGetAsync(string returnUrl = null)
+        
+        public async Task<IActionResult> OnGetAsync(string returnUrl = null)
         {
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
@@ -59,17 +60,29 @@ namespace ModernMarketTM.Web.Areas.Identity.Pages.Account
 
             returnUrl = returnUrl ?? Url.Content("~/");
 
+            if (this.User.Identity.IsAuthenticated)
+            {
+                return Redirect(returnUrl);
+            }
+
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             ReturnUrl = returnUrl;
+
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
+
+            if (this.User.Identity.IsAuthenticated)
+            {
+                return Redirect(returnUrl);
+            }
 
             if (ModelState.IsValid)
             {

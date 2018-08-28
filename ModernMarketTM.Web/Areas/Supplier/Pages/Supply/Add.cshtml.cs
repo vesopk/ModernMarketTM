@@ -5,10 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ModernMarketTM.Data;
 using ModernMarketTM.Models;
+using ModernMarketTM.Web.Constants;
 
 namespace ModernMarketTM.Web.Areas.Supplier.Pages.Supply
 {
-    [Authorize(Roles = "Supplier")]
+    [Authorize(Roles = RolesConstants.Supplier)]
     public class AddModel : PageModel
     {
         public List<CategoryInstance> Items { get; set; } = new List<CategoryInstance>();

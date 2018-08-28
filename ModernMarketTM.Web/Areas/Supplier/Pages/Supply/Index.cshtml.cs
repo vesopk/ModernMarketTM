@@ -4,10 +4,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ModernMarketTM.Models;
+using ModernMarketTM.Web.Constants;
 
 namespace ModernMarketTM.Web.Areas.Supplier.Pages.Supply
 {
-    [Authorize(Roles = "Supplier")]
+    [Authorize(Roles = RolesConstants.Supplier)]
     public class IndexModel : PageModel
     {
         public string FullName { get; set; }

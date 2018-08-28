@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using ModernMarketTM.Models;
+using ModernMarketTM.Web.Constants;
 
 namespace ModernMarketTM.Web.Common
 {
@@ -15,8 +16,6 @@ namespace ModernMarketTM.Web.Common
             new IdentityRole("Supplier"),
         };
 
-        private const string DefaultAdminPassword = "admin123";
-        private const string DefaultAdminHome = "AdminHome N17";
 
         public static async void SeedDatabase(
             this IApplicationBuilder app)
@@ -37,18 +36,18 @@ namespace ModernMarketTM.Web.Common
                     }
                 }
 
-                var user = await userManager.FindByNameAsync("admin");
+                var user = await userManager.FindByNameAsync(AdminConstants.DefaultAdminUsername);
                 if (user == null)
                 {
                     user = new User()
                     {
-                        UserName = "admin",
-                        Email = "admin@example.com",
-                        FullName = "Admin",
-                        Address = DefaultAdminHome
+                        UserName = AdminConstants.DefaultAdminUsername,
+                        Email = AdminConstants.DefaultAdminEmail,
+                        FullName = AdminConstants.DefaultAdminFullName,
+                        Address = AdminConstants.DefaultAdminHome
                     };
 
-                    await userManager.CreateAsync(user, DefaultAdminPassword);
+                    await userManager.CreateAsync(user, AdminConstants.DefaultAdminPassword);
                     await userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, roles[0].Name));
                     await userManager.AddToRoleAsync(user, roles[0].Name);
                 }

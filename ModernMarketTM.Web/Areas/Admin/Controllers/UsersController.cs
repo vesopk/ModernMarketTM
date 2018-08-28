@@ -10,6 +10,7 @@ using ModernMarketTM.Data;
 using ModernMarketTM.Models;
 using ModernMarketTM.Web.Areas.Admin.Models.BindingModels;
 using ModernMarketTM.Web.Areas.Admin.Models.ViewModels;
+using ModernMarketTM.Web.Constants;
 
 namespace ModernMarketTM.Web.Areas.Admin.Controllers
 {
@@ -46,23 +47,27 @@ namespace ModernMarketTM.Web.Areas.Admin.Controllers
                 var user = users.FirstOrDefault(u => u.Id == userConsiseViewModel.Id);
 
                 var roles = await UserManager.GetRolesAsync(user);
-
-                if (roles.Contains("Supplier"))
-                {
-                    userConsiseViewModel.IsSupplier = true;
-                }
-                else if (roles.Contains("Administrator"))
-                {
-                    userConsiseViewModel.IsAdmin = true;
-                }
-
-                if (user.LockoutEnd != null)
-                {
-                    userConsiseViewModel.IsBanned = true;
-                }
+                SetRoles(userConsiseViewModel, user, roles);
             }
 
             return this.View(model);
+        }
+
+        private static void SetRoles(UserViewModel userConsiseViewModel, User user, IList<string> roles)
+        {
+            if (roles.Contains(RolesConstants.Supplier))
+            {
+                userConsiseViewModel.IsSupplier = true;
+            }
+            else if (roles.Contains(RolesConstants.Admin))
+            {
+                userConsiseViewModel.IsAdmin = true;
+            }
+
+            if (user.LockoutEnd != null)
+            {
+                userConsiseViewModel.IsBanned = true;
+            }
         }
 
         public IActionResult ChangePassword(string id)
@@ -89,8 +94,8 @@ namespace ModernMarketTM.Web.Areas.Admin.Controllers
         {
             var user = Context.Users.Find(id);
 
-            await UserManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "Supplier"));
-            await UserManager.AddToRoleAsync(user, "Supplier");
+            await UserManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, RolesConstants.Supplier));
+            await UserManager.AddToRoleAsync(user, RolesConstants.Supplier);
 
             return this.RedirectToAction("Configure", "Users", new {area = "Admin"});
         }
@@ -119,8 +124,8 @@ namespace ModernMarketTM.Web.Areas.Admin.Controllers
         {
             var user = Context.Users.Find(id);
 
-            await UserManager.RemoveClaimAsync(user, new Claim(ClaimTypes.Role, "Supplier"));
-            await UserManager.RemoveFromRoleAsync(user, "Supplier");
+            await UserManager.RemoveClaimAsync(user, new Claim(ClaimTypes.Role, RolesConstants.Supplier));
+            await UserManager.RemoveFromRoleAsync(user, RolesConstants.Supplier);
 
             return this.RedirectToAction("Configure", "Users", new { area = "Admin" });
         }

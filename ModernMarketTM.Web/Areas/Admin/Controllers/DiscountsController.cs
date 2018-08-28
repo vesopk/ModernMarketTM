@@ -17,10 +17,20 @@ namespace ModernMarketTM.Web.Areas.Admin.Controllers
             DiscountsContants.DiscountDateToBeParsed = $"{date.Day}-{date.Month}-{date.Year}";
 
             var newDate = $"{date.Day}";
+            newDate = ParseDate(date, newDate);
 
+            DiscountsContants.DiscountDate = newDate;
+
+
+            return this.RedirectToAction("Index", "Home", new { area = "Admin" });
+        }
+
+        private static string ParseDate(DateTime date, string newDate)
+        {
             switch (date.Month)
             {
-                case 1: newDate += " януари.";
+                case 1:
+                    newDate += " януари.";
                     break;
 
                 case 2:
@@ -68,10 +78,7 @@ namespace ModernMarketTM.Web.Areas.Admin.Controllers
                     break;
             }
 
-            DiscountsContants.DiscountDate = newDate;
-
-
-            return this.RedirectToAction("Index", "Home", new {area = "Admin"});
+            return newDate;
         }
     }
 }
