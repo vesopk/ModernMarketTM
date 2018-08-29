@@ -19,6 +19,7 @@ namespace ModernMarketTM.Web.Mapping
             CreateMap<AddInstanceCategoryBindingModel, CategoryInstance>();
             CreateMap<CategoryInstance, CategoryInstanceViewModel>();
             CreateMap<Type, TypesViewModel>();
+            CreateMap<CategoryInstance, SearchItemsViewModel>();
         }
     }
 }

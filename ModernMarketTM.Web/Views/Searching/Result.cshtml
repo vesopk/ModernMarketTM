@@ -1,0 +1,28 @@
+﻿@model IEnumerable<SearchItemsViewModel>
+@{
+    ViewData["Title"] = $"Резултати за \"{ViewData["searchTerm"]}\"";
+}
+
+<h2 class="mt-5 text-center">
+    @{
+        var itemsCount = Model.Count();
+    }
+    @($"{itemsCount} {(itemsCount==1 ? "резултат" : "резултати") }, открити за:") <span class="h1"> "@ViewData["searchTerm"]"</span>
+</h2>
+
+<div class="row">
+    @foreach (var instance in Model)
+        {
+    <div class="col-4">
+        <a asp-action="Details" asp-controller="CategoriesInstances" asp-route-id="@instance.Id" asp-route-slug="@instance.Slug">
+            <div class="card mt-5">
+                <img class="card-img" src="@instance.PictureUrl" style="height: 450px">
+                <div class="card-body">
+                    <p class="card-text text-center text-secondary">@instance.Name</p>
+                    <p class="card-text text-center text-secondary">@instance.Price лв.</p>
+                </div>
+            </div>
+        </a>
+    </div>
+        }
+</div>

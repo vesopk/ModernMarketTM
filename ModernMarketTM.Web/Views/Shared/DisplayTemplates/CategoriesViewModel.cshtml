@@ -1,14 +1,15 @@
 ﻿@using ModernMarketTM.Web.Areas.Admin.Models.ViewModels
-@model ModernMarketTM.Web.Areas.Admin.Models.ViewModels.CategoriesViewModel
+@model CategoriesViewModel
 
 <div class="col-4">
-    <a asp-action="Index" asp-controller="CategoriesInstances" asp-route-id="@Model.Id" asp-route-slug="@Model.Slug">
-        <div class="card mt-5" >
-            <img class="card-img" src="@Model.PictureUrl" style="height: 450px">
-            <div class="card-body">
-                <p class="card-text text-center text-secondary">@Model.Name</p>
-            </div>
+    <div class="card mt-5">
+        <img class="card-img" src="@Model.PictureUrl" style="height: 450px">
+        <div class="card-body">
+            <p class="card-text text-center text-secondary">@Model.Name</p>
+            <a asp-action="Index" asp-controller="CategoriesInstances" asp-route-id="@Model.Id" asp-route-slug="@Model.Slug">
+                <p class="card-text text-center"><span class="btn btn-info">Виж повече</span></p>
+            </a>
         </div>
-    </a>
+    </div>
 </div>
 

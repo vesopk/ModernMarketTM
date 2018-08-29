@@ -18,14 +18,22 @@
 </head>
 <body style="background: #EEEEEC">
     <div class="navbar-light">
-        <nav class="navbar navbar-expand navbar-light bg-light">
+        <nav class="navbar navbar-expand navbar-light" style="background: #FFFFFF">
             <div class="navbar-brand">
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Private Modern Market TM</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">
+                    <img style="width: 50px" src="https://image.jimcdn.com/app/cms/image/transf/dimension=273x10000:format=png/path/sb0abad0b84d20c80/image/i2cb29e4dc5650d43/version/1408095291/tangram-puzzle-123-letter-m-visit-http-www-tangram-channel-com-to-see-the-solution-to-this-tangram.png" />
+                    <img style="width: 50px" src="https://image.jimcdn.com/app/cms/image/transf/dimension=273x10000:format=png/path/sb0abad0b84d20c80/image/i2cb29e4dc5650d43/version/1408095291/tangram-puzzle-123-letter-m-visit-http-www-tangram-channel-com-to-see-the-solution-to-this-tangram.png" />
+                    <img style="width: 50px" src="http://static1.squarespace.com/static/55ad3c98e4b0550249eac46a/t/56f344e701dbaef178d1e73d/1534617081037/" />
+                </a>
             </div>
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Начало</a></li>
-                <li class="nav-item active"><a class="nav-link" asp-page="/About">За нас</a></li>
-                <li class="nav-item active"><a class="nav-link" asp-area="" asp-controller="Orders" asp-action="Details">История</a></li>
+                <li class="nav-item active">
+                    <form class="form-inline" method="get" asp-controller="Searching" asp-action="Result" >
+                        <input class="form-control mr-sm-2" type="search" placeholder="Какво търсите днес?" name="searchTerm" aria-label="Search">
+                        <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Търсене</button>
+                    </form>
+                </li>
+                <li class="nav-item active"><a class="nav-link ml-2" asp-page="/About">За нас</a></li>
                 @if (this.User.IsInRole("Admin"))
                 {
                     <li class="nav-item active"><a class="nav-link" asp-area="Admin" asp-controller="Home" asp-action="Index">Админ</a></li>
@@ -71,7 +79,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2018 - Private Modern Market TM</p>
+            <p>&copy; @DateTime.UtcNow.Year - Private Modern Market TM</p>
         </footer>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
