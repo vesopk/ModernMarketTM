@@ -1,5 +1,7 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿@using System.Globalization
+@using Microsoft.AspNetCore.Identity
 @using ModernMarketTM.Models
+@using ModernMarketTM.Web.Constants
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
@@ -10,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
     <link rel="shortcut icon" href="/logo.ico" />
-
+    <link href="~/css/site.css" rel="stylesheet" />
     <link href="~/css/bootstrap-grid.css" rel="stylesheet" />
     <link href="~/css/bootstrap-reboot.css" rel="stylesheet" />
     <link href="~/css/bootstrap.css" rel="stylesheet" />
@@ -28,7 +30,7 @@
             </div>
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <form class="form-inline" method="get" asp-controller="Searching" asp-action="Result" >
+                    <form class="form-inline" method="get" asp-controller="Searching" asp-action="Result">
                         <input class="form-control mr-sm-2" type="search" placeholder="Какво търсите днес?" name="searchTerm" aria-label="Search">
                         <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Търсене</button>
                     </form>
@@ -72,9 +74,17 @@
             }
         </nav>
     </div>
-
-    <partial name="_CookieConsentPartial" />
-
+    @{
+        var now = DateTime.UtcNow;
+        var date = DiscountsContants.DiscountDateToBeParsed;
+        var discoutDate = DateTime.ParseExact(date, CommonConstants.DateTimeParseFormat, CultureInfo.InvariantCulture);
+        if (now < discoutDate)
+        {
+            <div class="text-center alert alert-warning h5" role="alert">
+                <strong>Здравейте!</strong> Получавате 10% отстъпка на всички продукти до @DiscountsContants.DiscountDate
+            </div>
+        }
+    }
     <div class="container body-content">
         @RenderBody()
         <hr />

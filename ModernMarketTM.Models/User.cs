@@ -9,6 +9,6 @@ namespace ModernMarketTM.Models
 
         public string Address { get; set; }
 
-        public IEnumerable<UserInstance> Orders { get; set; } = new List<UserInstance>();
+        public IEnumerable<Order> Orders { get; set; } = new List<Order>();
     }
 }

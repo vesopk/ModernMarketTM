@@ -4,23 +4,14 @@
     ViewData["Title"] = "Начало";
 }
 
+
+
 <div class="text-center mt-5">
-    @{
-        var now = DateTime.UtcNow;
-        var date = ViewData["discountDateToBeParsed"].ToString();
-        var discoutDate = DateTime.ParseExact(date, "d-M-yyyy", CultureInfo.InvariantCulture);
-        if (now < discoutDate)
-        {
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                <strong>Здравейте!</strong> Получавате 10% отстъпка на всички продукти до @ViewData["discountDate"]
-            </div>
-        }
-    }
     <h1>Добре дошли в Modern Market!</h1>
 
 
     <div class="d-flex">
-        <div class="dropdown text-left mt-5" style="margin-left: 5%">
+        <div class="dropdown text-left text-left mt-5" style="margin-left: 5%">
             <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
                 Типове
             </button>

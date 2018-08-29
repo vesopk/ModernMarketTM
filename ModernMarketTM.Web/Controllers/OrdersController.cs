@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ModernMarketTM.Data;
 using ModernMarketTM.Models;
+using ModernMarketTM.Models.Enums;
 using ModernMarketTM.Web.Constants;
 using ModernMarketTM.Web.Models;
 
@@ -52,7 +53,17 @@ namespace ModernMarketTM.Web.Controllers
             var price = 0M;
             price = CalculatePrice(user, items, orders, now, discoutDate);
 
-            Context.Orders.AddRange(orders);
+            var mainOrder = new Order()
+            {
+                Id = Guid.NewGuid().ToString(),
+                Items = orders,
+                RegisterDate = DateTime.UtcNow,
+                Status = Status.Регистрирана,
+                UserId = user.Id
+            };
+
+            Context.UserInstances.AddRange(orders);
+            Context.Orders.Add(mainOrder);
             Context.SaveChanges();
 
             var model = new OrderFinishViewModel()
@@ -79,8 +90,7 @@ namespace ModernMarketTM.Web.Controllers
                     {
                         UserId = user.Id,
                         CategoryInstanceId = item.Id,
-                        SoldPrice = item.Price * 0.9M,
-                        RegisterDate = DateTime.UtcNow.Date
+                        SoldPrice = item.Price * 0.9M
                     };
 
                     orders.Add(order);
@@ -95,8 +105,7 @@ namespace ModernMarketTM.Web.Controllers
                     {
                         UserId = user.Id,
                         CategoryInstanceId = item.Id,
-                        SoldPrice = item.Price,
-                        RegisterDate = DateTime.UtcNow.Date
+                        SoldPrice = item.Price
                     };
 
                     orders.Add(order);
@@ -131,10 +140,9 @@ namespace ModernMarketTM.Web.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> Details()
+        public IActionResult Details()
         {
-            var user = await UserManager.GetUserAsync(User);
-            var orders = Context.Orders.Include(o => o.CategoryInstance).Where(o => o.UserId == user.Id).ToList();
+            var orders = Context.Orders.Include(o => o.Items).ToList();
 
             var models = new List<OrdersViewModel>();
 
@@ -143,17 +151,30 @@ namespace ModernMarketTM.Web.Controllers
                 var model = new OrdersViewModel()
                 {
                     Id = order.Id,
-                    CategoryId = order.CategoryInstanceId,
-                    Name = order.CategoryInstance.Name,
-                    Price = order.SoldPrice.Value,
                     Date = order.RegisterDate,
-                    Slug = order.CategoryInstance.Slug
+                    Status = order.Status,
+                    Price = order.Items.Sum(i => i.SoldPrice).Value
                 };
 
                 models.Add(model);
             }
 
             return this.View(models);
+        }
+
+        [Authorize]
+        public IActionResult About(string id)
+        {
+            var order = Context.Orders.Include(o => o.User).Include(o => o.Items).ThenInclude(i => i.CategoryInstance).FirstOrDefault(o => o.Id == id);
+
+            var model = new OrderAboutViewModel()
+            {
+                Id = order.Id,
+                Price = order.Items.Sum(o => o.SoldPrice).Value,
+                Items = order.Items
+            };
+
+            return this.View(model);
         }
     }
 }

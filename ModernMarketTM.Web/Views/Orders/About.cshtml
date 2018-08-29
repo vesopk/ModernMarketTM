@@ -1,0 +1,22 @@
+﻿@model OrderAboutViewModel
+@{
+    ViewData["Title"] = $"Детайли за поръчка #{Model.Id}";
+}
+
+<h2 class="mt-5 text-center">@ViewData["Title"]</h2>
+
+<table class="table table-striped mt-5">
+    <thead>
+    <tr>
+        <th scope="col">Продукт</th>
+        <th scope="col">Ед.Цена</th>
+        <th scope="col">Брой</th>
+        <th scope="col">Цена</th>
+    </tr>
+    </thead>
+    <tbody>
+    @Html.DisplayForModel()
+    </tbody>
+</table>
+
+<h1 class="text-right mt-5"><strong>Общо: </strong> @Model.Items.Sum(ci => ci.SoldPrice) лв.</h1>

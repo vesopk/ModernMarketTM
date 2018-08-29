@@ -1,18 +1,15 @@
 ﻿using System;
+using ModernMarketTM.Models.Enums;
 
 namespace ModernMarketTM.Web.Models
 {
     public class OrdersViewModel
     {
-        public int Id { get; set; }
-
-        public int CategoryId { get; set; }
-
-        public string Name { get; set; }
-
-        public string Slug { get; set; }
+        public string Id { get; set; }
 
         public decimal Price { get; set; }
+
+        public Status Status { get; set; }
 
         public DateTime Date { get; set; }
     }

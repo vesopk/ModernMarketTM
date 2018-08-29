@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ModernMarketTM.Models
+﻿namespace ModernMarketTM.Models
 {
     public class UserInstance
     {
@@ -16,6 +14,8 @@ namespace ModernMarketTM.Models
 
         public CategoryInstance CategoryInstance { get; set; }
 
-        public DateTime RegisterDate { get; set; }
+        public int OrderId { get; set; }
+
+        public Order Order { get; set; }
     }
 }

@@ -73,9 +73,9 @@ namespace ModernMarketTM.Web.Areas.Identity.Pages.Account.Manage
                 }
             }
 
-            var orders = Context.Orders.Where(o => o.UserId == user.Id).ToList();
+            var orders = Context.UserInstances.Where(o => o.UserId == user.Id).ToList();
 
-            Context.Orders.RemoveRange(orders);
+            Context.UserInstances.RemoveRange(orders);
             Context.SaveChanges();
 
             var result = await _userManager.DeleteAsync(user);

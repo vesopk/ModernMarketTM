@@ -31,6 +31,7 @@ namespace ModernMarketTM.Web.Controllers
             var items = Context.CategoryInstances.Where(ci => ci.Name.ToLower().Contains(searchTerm.ToLower())).ToList();
             ViewData["searchTerm"] = searchTerm;
 
+
             var model = Mapper.Map<IEnumerable<SearchItemsViewModel>>(items);
 
             return this.View(model);
