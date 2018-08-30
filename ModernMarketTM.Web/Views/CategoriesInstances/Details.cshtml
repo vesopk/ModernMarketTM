@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = $"Детайли за {Model.Name}";
 }
+@inject ShoppingCart Cart
 
 <div class="container text-center">
     <h3 class="mt-3">@Model.Name</h3>
@@ -10,12 +11,20 @@
     <div class="mt-3"><strong>Цена:</strong> @Model.Price лв.</div>
     <div class="mt-3"><strong>Описание:</strong> @Model.Description</div>
     <div class="mt-3"><strong>Количество:</strong> @Model.Quantity @(Model.Quantity == 1 ? "брой" : "броя")</div>
-   @if (Model.Quantity > 0)
-   {
-       <a asp-action="AddToCart" asp-controller="CategoriesInstances" asp-route-id="@Model.Id" asp-route-slug="@Model.Slug" class="btn btn-info mt-3">Добави в количката</a>
-   }
-   else
-   {
-       <input disabled="disabled" class="btn btn-info mt-3" value="Добави в количката"/>
-   }
+    @{
+        if (!Cart.ReservedQuantity.ContainsKey(Model.Id))
+        {
+            Cart.ReservedQuantity[Model.Id] = 0;
+        }
+    }
+
+    @if (Model.Quantity - Cart.ReservedQuantity[Model.Id] > 0)
+    {
+        <a asp-action="AddToCart" asp-controller="CategoriesInstances" asp-route-id="@Model.Id" asp-route-slug="@Model.Slug" class="btn btn-info mt-3">Добави в количката</a>
+    }
+    else
+    {
+        <input disabled="disabled" class="btn btn-info mt-3" value="Добави в количката" />
+        <h4 class="text-info mt-3">Ако има бройки, но не можете да добавите в количката предмета, значи е резервиран!</h4>
+    }
 </div>

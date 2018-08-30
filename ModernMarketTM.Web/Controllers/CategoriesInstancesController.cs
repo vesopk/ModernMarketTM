@@ -88,9 +88,18 @@ namespace ModernMarketTM.Web.Controllers
                 Cart.UsersCart[user.Id] = new List<CategoryInstance>();
             }
 
-            Cart.UsersCart[user.Id].Add(item);
+            if (!Cart.ReservedQuantity.ContainsKey(item.Id))
+            {
+                Cart.ReservedQuantity[item.Id] = 0;
+            }
 
-            return this.RedirectToAction("Index",new{ id=item.CategoryId,slug=item.Category.Slug});
+            if (item.Quantity - Cart.ReservedQuantity[item.Id] > 0)
+            {
+                Cart.UsersCart[user.Id].Add(item);
+                Cart.ReservedQuantity[item.Id]++;
+            }
+
+            return this.RedirectToAction("Details",new{ id=item.Id,slug=item.Slug});
         }
 
 
@@ -107,6 +116,7 @@ namespace ModernMarketTM.Web.Controllers
             var user = await this.UserManager.GetUserAsync(User);
             var item = Cart.UsersCart[user.Id].FirstOrDefault(ci => ci.Id == id);
             Cart.UsersCart[user.Id].Remove(item);
+            Cart.ReservedQuantity[instance.Id]--;
 
             return this.RedirectToAction("Index", "Cart");
         }

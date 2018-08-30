@@ -121,6 +121,7 @@ namespace ModernMarketTM.Web.Controllers
             {
                 var instance = Context.CategoryInstances.Find(item.Key);
                 instance.Quantity -= item.Value;
+                this.Cart.ReservedQuantity[item.Key] -= item.Value;
                 Context.CategoryInstances.Update(instance);
                 Context.SaveChanges();
             }
@@ -142,7 +143,7 @@ namespace ModernMarketTM.Web.Controllers
         [Authorize]
         public IActionResult Details()
         {
-            var orders = Context.Orders.Include(o => o.Items).ToList();
+            var orders = Context.Orders.Include(o => o.Items).ToList().OrderByDescending(o => o.RegisterDate);
 
             var models = new List<OrdersViewModel>();
 
