@@ -9,13 +9,13 @@
 
 #removeFromCart {
     text-decoration: none;
-    font-size: 30px;
+    font-size: 35px;
     color: #545B62;
 }
 
-#removeFromCart:hover {
-    color: #DC3545;
-}
+    #removeFromCart:hover {
+        color: #DC3545;
+    }
 
 #cartNav {
     width: 100%;
@@ -36,12 +36,80 @@
 #product {
     margin-left: 3%;
 }
+
 #price {
-    margin-left: 27%;
+    margin-left: 32%;
 }
+
 #quantity {
     margin-left: 10%;
 }
+
 #sum {
-    margin-left: 10%;
+    margin-left: 7%;
+}
+
+#logos li {
+    margin-right: 15px;
+}
+
+#search {
+    background: transparent;
+    border: none !important;
+    padding-bottom: 6px;
+    padding-top: 7.5px;
+}
+
+#search:hover{
+    cursor: pointer;
+    background: #000000;
+}
+
+#glass {
+    color: black;
+    font-size: 22px;
+    background: #E4601C;
+}
+#search:hover > i{
+    color: #e4601c;
+    background: #000000;
+}
+
+#searchBar {
+    border: 4px solid black;
+    border-radius: 8px;
+}
+#searchTerm {
+    border-radius: 3px 0 0 3px;
+}
+
+#searchBar ::-webkit-input-placeholder { /* Chrome */
+    color: black;
+}
+#searchBar :-ms-input-placeholder { /* IE 10+ */
+    color: black;
+}
+#searchBar ::-moz-placeholder { /* Firefox 19+ */
+    color: black;
+    opacity: 1;
+}
+#searchBar :-moz-placeholder { /* Firefox 4 - 18 */
+    color: black;
+    opacity: 1;
+}
+
+#test {
+    border: 3px solid white;
+    width: 38px;
+    height: 29px;
+    border-radius: 25px;
+    background: #e4601c;
+    color: black;
+    font-size: 15px;
+    text-align: center;
+    position: absolute;
+    z-index: 1;
+    right: 4.5%;
+    top: 12%;
+    font-weight: 700
 }

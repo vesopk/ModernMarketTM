@@ -15,4 +15,9 @@
     <li class="nav-item"><a class=" nav-link active bg-info mt-1" asp-page="./TwoFactorAuthentication">Двуфакторна автентикация</a></li>
     <li class="nav-item"><a class=" nav-link active bg-info mt-1" asp-page="./PersonalData">Лични данни</a></li>
     <li class="nav-item"><a class="nav-link active bg-info mt-1" asp-area="" asp-controller="Orders" asp-action="Details" asp-route-id="@user.Id">Поръчки</a></li>
+    <li class="nav-item">
+        <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post">
+            <button type="submit" class="nav-link active bg-info mt-1" style="cursor: pointer;border: none">Излез</button>
+        </form>
+    </li>
 </ul>

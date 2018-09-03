@@ -6,15 +6,15 @@
 <div class="list-group-item">
     <div class="media">
         <div class="mr-3" style="width: 100px">
-            <img class="d-flex align-self-center img-thumbnail border-0" src="@Model.PictureUrl"
-                 alt="Generic placeholder image">
-        </div>
-        <div class="media-body align-self-center">
             <a asp-controller="CategoriesInstances" asp-action="Details" asp-route-id="@Model.Id" asp-route-slug="@Model.Slug">
-                <h5 class="mb-1 list-group-item-heading"> @Model.Name </h5>
+                <img class="d-flex align-self-center img-thumbnail border-0" src="@Model.PictureUrl"
+                     alt="Generic placeholder image">
             </a>
         </div>
-        <div class="col-4 text-center align-self-center mr-auto">
+        <div class="media-body align-self-center col-3" style="color: #545B62">
+                <h5 class="mb-1 list-group-item-heading"> @Model.Name </h5>
+        </div>
+        <div class="col-3 text-center align-self-center mr-auto">
             @{
                 var now = DateTime.UtcNow;
                 var date = DiscountsContants.DiscountDateToBeParsed;
@@ -38,7 +38,7 @@
                 @Model.Quantity
             </p>
         </div>
-        <div class="col-4 text-center align-self-center mr-auto">
+        <div class="col-3 text-center align-self-center mr-auto">
             @{
                 if (now < discoutDate)
                 {
@@ -52,6 +52,6 @@
                 }
             }
         </div>
-        <a id="removeFromCart" class="mr-5 align-self-center" asp-controller="CategoriesInstances" asp-action="RemoveFromCart" asp-route-id="@Model.Id" asp-route-slug="@Model.Slug">X</a>
+        <a id="removeFromCart" class="mr-5 align-self-center" asp-controller="CategoriesInstances" asp-action="RemoveFromCart" asp-route-id="@Model.Id" asp-route-slug="@Model.Slug"><i class="fas fa-times"></i></a>
     </div>
 </div>
