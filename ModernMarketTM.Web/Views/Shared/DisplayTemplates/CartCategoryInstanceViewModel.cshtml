@@ -1,0 +1,57 @@
+﻿@using System.Globalization
+@using ModernMarketTM.Models
+@using ModernMarketTM.Web.Constants
+@model CartCategoryInstanceViewModel
+
+<div class="list-group-item">
+    <div class="media">
+        <div class="mr-3" style="width: 100px">
+            <img class="d-flex align-self-center img-thumbnail border-0" src="@Model.PictureUrl"
+                 alt="Generic placeholder image">
+        </div>
+        <div class="media-body align-self-center">
+            <a asp-controller="CategoriesInstances" asp-action="Details" asp-route-id="@Model.Id" asp-route-slug="@Model.Slug">
+                <h5 class="mb-1 list-group-item-heading"> @Model.Name </h5>
+            </a>
+        </div>
+        <div class="col-4 text-center align-self-center mr-auto">
+            @{
+                var now = DateTime.UtcNow;
+                var date = DiscountsContants.DiscountDateToBeParsed;
+                var discoutDate = DateTime.ParseExact(date, "d-M-yyyy", CultureInfo.InvariantCulture);
+                if (now < discoutDate)
+                {
+
+
+                    <h2 class="text-secondary"><del>@Model.Price</del> лв.</h2>
+
+                    <h2><span class="text-danger">@($"{Model.Price * 0.9M:F2}") лв.</span></h2>
+                }
+                else
+                {
+                    <h2> @Model.Price лв. </h2>
+                }
+            }
+        </div>
+        <div class="align-self-center">
+            <p class="text-center" style="font-size: 30px">
+                @Model.Quantity
+            </p>
+        </div>
+        <div class="col-4 text-center align-self-center mr-auto">
+            @{
+                if (now < discoutDate)
+                {
+                    <h2 class="text-secondary"><del>@(Model.Price*Model.Quantity)</del> лв.</h2>
+
+                    <h2><span class="text-danger">@($"{(Model.Price * Model.Quantity) * 0.9M:F2}") лв.</span></h2>
+                }
+                else
+                {
+                    <h2> @(Model.Price * Model.Quantity) лв. </h2>
+                }
+            }
+        </div>
+        <a id="removeFromCart" class="mr-5 align-self-center" asp-controller="CategoriesInstances" asp-action="RemoveFromCart" asp-route-id="@Model.Id" asp-route-slug="@Model.Slug">X</a>
+    </div>
+</div>

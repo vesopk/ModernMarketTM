@@ -14,6 +14,7 @@ namespace ModernMarketTM.Web.Common
         {
             new IdentityRole("Admin"),
             new IdentityRole("Supplier"),
+            new IdentityRole("Operator"),
         };
 
 

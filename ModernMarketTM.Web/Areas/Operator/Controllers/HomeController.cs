@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using ModernMarketTM.Models;
 using ModernMarketTM.Web.Areas.Admin.Models.ViewModels;
 
-namespace ModernMarketTM.Web.Areas.Admin.Controllers
+namespace ModernMarketTM.Web.Areas.Operator.Controllers
 {
-    public class HomeController : AdminController
+    public class HomeController : OperatorController
     {
         public UserManager<User> UserManager { get; set; }
 

@@ -6,6 +6,7 @@
     <td>@Model.Email</td>
     <td>@Html.DisplayFor(model => Model.IsSupplier)</td>
     <td>@Html.DisplayFor(model => Model.IsAdmin)</td>
+    <td>@Html.DisplayFor(model => Model.IsOperator)</td>
     <td>
         <a asp-area="Admin" asp-controller="Users" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-info">Детайли</a>
         @if (!Model.IsAdmin)
@@ -16,16 +17,24 @@
             }
             else
             {
-                <a asp-area="Admin" asp-controller="Users" asp-action="RemoveSupplier" asp-route-id="@Model.Id" class="btn btn-success">Направи потребител</a>
+                <a asp-area="Admin" asp-controller="Users" asp-action="RemoveSupplier" asp-route-id="@Model.Id" class="btn btn-success">Премахни доставчик</a>
             }
-            <a asp-area="Admin" asp-controller="Users" asp-action="ChangePassword" asp-route-id="@Model.Id" class="btn btn-warning">Парола</a>
+            if (!Model.IsOperator)
+            {
+                <a asp-area="Admin" asp-controller="Users" asp-action="MakeOperator" asp-route-id="@Model.Id" class="btn btn-primary">Направи оператор</a>
+            }
+            else
+            {
+                <a asp-area="Admin" asp-controller="Users" asp-action="RemoveOperator" asp-route-id="@Model.Id" class="btn btn-primary">Премахни оператор</a>
+            }
+            <a asp-area="Admin" asp-controller="Users" asp-action="ChangePassword" asp-route-id="@Model.Id" class="btn btn-warning mt-1">Парола</a>
             if (!Model.IsBanned)
             {
                 <a asp-area="Admin" asp-controller="Users" asp-action="Ban" asp-route-id="@Model.Id" class="btn btn-danger">Забрана</a>
             }
             else
             {
-                <a asp-area="Admin" asp-controller="Users" asp-action="UnBan" asp-route-id="@Model.Id" class="btn btn-danger">Махане на забрана</a>
+                <a asp-area="Admin" asp-controller="Users" asp-action="UnBan" asp-route-id="@Model.Id" class="btn btn-danger mt-1">Махане на забрана</a>
             }
         }
     </td>

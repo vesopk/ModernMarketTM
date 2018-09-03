@@ -1,0 +1,39 @@
+﻿@using ModernMarketTM.Web.Constants
+@model ModernMarketTM.Web.Areas.Operator.Models.ViewModel.OrderAboutOperatorViewModel
+@{
+    ViewData["Title"] = $"Детайли за поръчка #{Model.Id}";
+}
+
+<h2 class="mt-5 text-center">@ViewData["Title"]</h2>
+
+
+<h3 class="mt-5">Информация за потребител</h3>
+<ul class="list-group mt-3">
+    <li class="list-group-item"><strong>Номер:</strong> @Model.UserId</li>
+    <li class="list-group-item"><strong>Потребителско име:</strong> @Model.UserName</li>
+    <li class="list-group-item"><strong>Цяло име:</strong> @Model.FullName</li>
+    <li class="list-group-item"><strong>Адрес:</strong> @Model.Address</li>
+</ul>
+
+<table class="table table-striped mt-5">
+    <thead>
+        <tr>
+            <th scope="col">Продукт</th>
+            <th scope="col">Ед.Цена</th>
+            <th scope="col">Брой</th>
+            <th scope="col">Цена</th>
+        </tr>
+    </thead>
+    <tbody>
+        @Html.DisplayForModel()
+    </tbody>
+</table>
+
+@if (!Model.IsSentOrDenied)
+{
+    <div class="text-center">
+        <a asp-area="Operator" asp-controller="Orders" asp-action="ConfirmOrder" asp-route-id="@Model.Id" class="btn btn-success">Потвърди поръчка</a>
+        <a asp-area="Operator" asp-controller="Orders" asp-action="DenyOrder" asp-route-id="@Model.Id" class="btn btn-danger">Отхвърли поръчка</a>
+    </div>
+}
+<h1 class="text-right mt-5"><strong>Общо: </strong> @Model.Items.Sum(ci => ci.SoldPrice) лв.</h1>

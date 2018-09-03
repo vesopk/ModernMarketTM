@@ -1,4 +1,5 @@
-﻿@model UserDetailsViewModel
+﻿@using ModernMarketTM.Web.Constants
+@model UserDetailsViewModel
 @{
     ViewData["Title"] = $"Детайли за {Model.UserName}";
 }
@@ -16,13 +17,17 @@
             <li>Потребител</li>
             @foreach (var role in Model.Roles)
             {
-                if (@role == "Supplier")
+                if (role == RolesConstants.Supplier)
                 {
                     <li>Доставчик</li>
                 }
-                else
+                else if (role == RolesConstants.Admin)
                 {
                     <li>Админ</li>
+                }
+                else if (role == RolesConstants.Operator)
+                {
+                    <li>Оператор</li>
                 }
             }
         </ul>

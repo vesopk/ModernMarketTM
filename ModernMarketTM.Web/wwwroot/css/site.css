@@ -6,3 +6,42 @@
     /*Without this, clicking will make it sticky*/
     pointer-events: none;
 }
+
+#removeFromCart {
+    text-decoration: none;
+    font-size: 30px;
+    color: #545B62;
+}
+
+#removeFromCart:hover {
+    color: #DC3545;
+}
+
+#cartNav {
+    width: 100%;
+    height: 50px;
+    background: #E4601C;
+    border: 1px solid #000000;
+    color: black;
+    font-size: 22px;
+    padding-top: 5px;
+}
+
+#botomCartNav {
+    border-bottom: 1px solid #000000;
+    border-right: 1px solid #000000;
+    border-left: 1px solid #000000;
+}
+
+#product {
+    margin-left: 3%;
+}
+#price {
+    margin-left: 27%;
+}
+#quantity {
+    margin-left: 10%;
+}
+#sum {
+    margin-left: 10%;
+}

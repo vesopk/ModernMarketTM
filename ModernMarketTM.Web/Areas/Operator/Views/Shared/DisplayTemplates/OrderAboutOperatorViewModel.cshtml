@@ -1,0 +1,27 @@
+﻿@model ModernMarketTM.Web.Areas.Operator.Models.ViewModel.OrderAboutOperatorViewModel
+
+@{
+    var itemsCount = new Dictionary<int, int>();
+}
+
+@foreach (var item in Model.Items)
+{
+    if (!itemsCount.ContainsKey(item.CategoryInstanceId))
+    {
+        itemsCount[item.CategoryInstanceId] = 0;
+    }
+    itemsCount[item.CategoryInstanceId]++;
+
+}
+
+@foreach (var item in itemsCount)
+{
+    var category = Model.Items.FirstOrDefault(c => c.CategoryInstanceId == item.Key);
+
+    <tr>
+        <td class="col-5"><a asp-controller="CategoriesInstances" asp-action="Details" asp-route-id="@category.CategoryInstance.Id" asp-route-slug="@category.CategoryInstance.Slug"><img class="img-thumbnail w-50" src="@category.CategoryInstance.PictureUrl" /></a></td>
+        <td style="font-size: 25px;padding-top: 8%">@category.SoldPrice</td>
+        <td style="font-size: 25px;padding-top: 8%">@item.Value</td>
+        <td style="font-size: 25px;padding-top: 8%">@($"{(category.SoldPrice * item.Value):F2}")</td>
+    </tr>
+}

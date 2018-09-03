@@ -22,10 +22,7 @@
                 <img style="width: 50px" src="http://static1.squarespace.com/static/55ad3c98e4b0550249eac46a/t/56f344e701dbaef178d1e73d/1534617081037/"/>
             </a>
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active"><a class="nav-link" asp-area="Admin" asp-controller="Categories" asp-action="Index">Категории</a></li>
-                <li class="nav-item active"><a class="nav-link" asp-area="Admin" asp-controller="Users" asp-action="Configure">Потребители</a></li>
-                <li class="nav-item active"><a class="nav-link" asp-area="Admin" asp-controller="Discounts" asp-action="Index">Промоции</a></li>
-                <li class="nav-item active"><a class="nav-link" asp-area="Admin" asp-controller="Cart" asp-action="ResetCart">Нулиране на количките</a></li>
+                <li class="nav-item active"><a class="nav-link" asp-area="Operator" asp-controller="Orders" asp-action="Index">Поръчки</a></li>
             </ul>
 
             @if (SignInManager.IsSignedIn(User))

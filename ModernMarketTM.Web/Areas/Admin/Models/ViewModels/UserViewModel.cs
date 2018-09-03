@@ -14,6 +14,8 @@ namespace ModernMarketTM.Web.Areas.Admin.Models.ViewModels
         
         public bool IsSupplier { get; set; }
 
+        public bool IsOperator { get; set; }
+
         public bool IsBanned { get; set; }
     }
 }

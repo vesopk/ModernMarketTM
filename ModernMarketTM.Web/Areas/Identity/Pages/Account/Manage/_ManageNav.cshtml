@@ -1,7 +1,9 @@
 ﻿@using ModernMarketTM.Models
 @inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+    var user = await UserManager.GetUserAsync(User);
 }
 <ul class="nav nav-pills nav-stacked">
     <li class="nav-item"><a class=" nav-link active bg-info" asp-page="./Index">Профил</a></li>
@@ -12,5 +14,5 @@
     }
     <li class="nav-item"><a class=" nav-link active bg-info mt-1" asp-page="./TwoFactorAuthentication">Двуфакторна автентикация</a></li>
     <li class="nav-item"><a class=" nav-link active bg-info mt-1" asp-page="./PersonalData">Лични данни</a></li>
-    <li class="nav-item active"><a class="nav-link active bg-info mt-1" asp-area="" asp-controller="Orders" asp-action="Details">Поръчки</a></li>
+    <li class="nav-item"><a class="nav-link active bg-info mt-1" asp-area="" asp-controller="Orders" asp-action="Details" asp-route-id="@user.Id">Поръчки</a></li>
 </ul>

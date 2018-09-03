@@ -30,14 +30,31 @@ namespace ModernMarketTM.Web.Controllers
         {
             var user = await UserManager.GetUserAsync(User);
 
-            var model = new List<CategoryInstance>();
+            var model = new List<CartCategoryInstanceViewModel>();
+            var modelMap = new Dictionary<int,CartCategoryInstanceViewModel>();
 
             if (Cart.UsersCart.ContainsKey(user.Id))
             {
-                model = Cart.UsersCart[user.Id].ToList();
-            }
+                var postModel = Cart.UsersCart[user.Id].ToList();
 
-            this.ViewData["discountDateToBeParsed"] = DiscountsContants.DiscountDateToBeParsed;
+                foreach (var instance in postModel)
+                {
+                    if (!modelMap.ContainsKey(instance.Id))
+                    {
+                        modelMap[instance.Id] = new CartCategoryInstanceViewModel();
+                    }
+                    modelMap[instance.Id].Id = instance.Id;
+                    modelMap[instance.Id].Description = instance.Description;
+                    modelMap[instance.Id].Slug = instance.Slug;
+                    modelMap[instance.Id].PictureUrl = instance.PictureUrl;
+                    modelMap[instance.Id].Name = instance.Name;
+                    modelMap[instance.Id].Price = instance.Price;
+                    modelMap[instance.Id].Quantity++;
+                }
+
+                model = modelMap.Values.ToList();
+            }
+            
             return this.View(model);
         }
     }

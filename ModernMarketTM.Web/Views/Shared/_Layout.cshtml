@@ -36,13 +36,17 @@
                     </form>
                 </li>
                 <li class="nav-item active"><a class="nav-link ml-2" asp-page="/About">За нас</a></li>
-                @if (this.User.IsInRole("Admin"))
+                @if (this.User.IsInRole(RolesConstants.Admin))
                 {
                     <li class="nav-item active"><a class="nav-link" asp-area="Admin" asp-controller="Home" asp-action="Index">Админ</a></li>
                 }
-                @if (this.User.IsInRole("Supplier"))
+                @if (this.User.IsInRole(RolesConstants.Supplier))
                 {
                     <li class="nav-item active"><a class="nav-link" asp-area="Supplier" asp-page="/Supply/Index">Доставчик</a></li>
+                }
+                @if (this.User.IsInRole(RolesConstants.Operator))
+                {
+                    <li class="nav-item active"><a class="nav-link" asp-area="Operator" asp-controller="Home" asp-action="Index" >Оператор</a></li>
                 }
             </ul>
 

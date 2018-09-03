@@ -59,9 +59,13 @@ namespace ModernMarketTM.Web.Areas.Admin.Controllers
             {
                 userConsiseViewModel.IsSupplier = true;
             }
-            else if (roles.Contains(RolesConstants.Admin))
+            if (roles.Contains(RolesConstants.Admin))
             {
                 userConsiseViewModel.IsAdmin = true;
+            }
+            if (roles.Contains(RolesConstants.Operator))
+            {
+                userConsiseViewModel.IsOperator = true;
             }
 
             if (user.LockoutEnd != null)
@@ -142,6 +146,26 @@ namespace ModernMarketTM.Web.Areas.Admin.Controllers
             }
 
             return this.View(model);
+        }
+
+        public async Task<IActionResult> MakeOperator(string id)
+        {
+            var user = Context.Users.Find(id);
+
+            await UserManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, RolesConstants.Operator));
+            await UserManager.AddToRoleAsync(user, RolesConstants.Operator);
+
+            return this.RedirectToAction("Configure", "Users", new { area = "Admin" });
+        }
+
+        public async Task<IActionResult> RemoveOperator(string id)
+        {
+            var user = Context.Users.Find(id);
+
+            await UserManager.RemoveClaimAsync(user, new Claim(ClaimTypes.Role, RolesConstants.Operator));
+            await UserManager.RemoveFromRoleAsync(user, RolesConstants.Operator);
+
+            return this.RedirectToAction("Configure", "Users", new { area = "Admin" });
         }
     }
 }

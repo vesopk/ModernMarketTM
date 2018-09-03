@@ -141,9 +141,9 @@ namespace ModernMarketTM.Web.Controllers
         }
 
         [Authorize]
-        public IActionResult Details()
+        public IActionResult Details(string id)
         {
-            var orders = Context.Orders.Include(o => o.Items).ToList().OrderByDescending(o => o.RegisterDate);
+            var orders = Context.Orders.Include(o => o.Items).Where(o => o.UserId == id).ToList().OrderByDescending(o => o.RegisterDate);
 
             var models = new List<OrdersViewModel>();
 
