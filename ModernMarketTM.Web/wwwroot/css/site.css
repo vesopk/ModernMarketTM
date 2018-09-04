@@ -13,9 +13,9 @@
     color: #545B62;
 }
 
-    #removeFromCart:hover {
-        color: #DC3545;
-    }
+#removeFromCart:hover {
+    color: #DC3545;
+}
 
 #cartNav {
     width: 100%;
@@ -60,17 +60,18 @@
     padding-top: 7.5px;
 }
 
-#search:hover{
-    cursor: pointer;
-    background: #000000;
-}
+    #search:hover {
+        cursor: pointer;
+        background: #000000;
+    }
 
 #glass {
     color: black;
     font-size: 22px;
     background: #E4601C;
 }
-#search:hover > i{
+
+#search:hover > i {
     color: #e4601c;
     background: #000000;
 }
@@ -79,6 +80,7 @@
     border: 4px solid black;
     border-radius: 8px;
 }
+
 #searchTerm {
     border-radius: 3px 0 0 3px;
 }
@@ -86,13 +88,16 @@
 #searchBar ::-webkit-input-placeholder { /* Chrome */
     color: black;
 }
+
 #searchBar :-ms-input-placeholder { /* IE 10+ */
     color: black;
 }
+
 #searchBar ::-moz-placeholder { /* Firefox 19+ */
     color: black;
     opacity: 1;
 }
+
 #searchBar :-moz-placeholder { /* Firefox 4 - 18 */
     color: black;
     opacity: 1;
@@ -112,4 +117,48 @@
     right: 4.5%;
     top: 12%;
     font-weight: 700
+}
+
+.profile {
+    background: #e4601c;
+    color: black;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.profile:hover {
+    text-decoration: none;
+    color: black;
+}
+
+header nav ul {
+    margin-bottom: 0;
+    padding-left: 0;
+}
+
+header nav ul li {
+    display: inline-block;
+    padding: 25px;
+}
+    
+
+header nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+}
+
+header nav ul {
+    background-Color: #5A6268;
+}
+
+header nav ul li a:before {
+    font-family: 'FontAwesome',serif;
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+header nav ul li:hover .citem {
+    color: #ffffff;
+    text-decoration: none;
 }

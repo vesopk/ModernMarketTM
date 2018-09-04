@@ -6,18 +6,18 @@
     var user = await UserManager.GetUserAsync(User);
 }
 <ul class="nav nav-pills nav-stacked">
-    <li class="nav-item"><a class=" nav-link active bg-info" asp-page="./Index">Профил</a></li>
-    <li class="nav-item"><a class=" nav-link active bg-info mt-1" id="change-password" asp-page="./ChangePassword">Парола</a></li>
+    <li class="nav-item"><a class=" nav-link profile" asp-page="./Index">Профил</a></li>
+    <li class="nav-item"><a class=" nav-link mt-1 profile" id="change-password" asp-page="./ChangePassword">Парола</a></li>
     @if (hasExternalLogins)
     {
-        <li class="nav-item"><a class=" nav-link active bg-info mt-1" id="external-login" asp-page="./ExternalLogins">Външни влизания</a></li>
+        <li class="nav-item"><a class=" nav-link mt-1 profile" id="external-login" asp-page="./ExternalLogins">Външни влизания</a></li>
     }
-    <li class="nav-item"><a class=" nav-link active bg-info mt-1" asp-page="./TwoFactorAuthentication">Двуфакторна автентикация</a></li>
-    <li class="nav-item"><a class=" nav-link active bg-info mt-1" asp-page="./PersonalData">Лични данни</a></li>
-    <li class="nav-item"><a class="nav-link active bg-info mt-1" asp-area="" asp-controller="Orders" asp-action="Details" asp-route-id="@user.Id">Поръчки</a></li>
+    <li class="nav-item"><a class=" nav-link mt-1 profile" asp-page="./TwoFactorAuthentication">Двуфакторна автентикация</a></li>
+    <li class="nav-item"><a class=" nav-link mt-1 profile" asp-page="./PersonalData">Лични данни</a></li>
+    <li class="nav-item"><a class="nav-link mt-1 profile" asp-area="" asp-controller="Orders" asp-action="Details" asp-route-id="@user.Id">Поръчки</a></li>
     <li class="nav-item">
         <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post">
-            <button type="submit" class="nav-link active bg-info mt-1" style="cursor: pointer;border: none">Излез</button>
+            <button type="submit" class="nav-link profile mt-1" style="cursor: pointer;border: none">Излез</button>
         </form>
     </li>
 </ul>
