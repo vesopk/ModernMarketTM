@@ -56,8 +56,8 @@
 #search {
     background: transparent;
     border: none !important;
-    padding-bottom: 6px;
-    padding-top: 7.5px;
+    padding-bottom: 5px;
+    padding-top: 8px;
 }
 
     #search:hover {
